@@ -1,11 +1,14 @@
 void main() {
   print("Hello");
+  
   final bike = Bicycle(2, 20);
   print(bike);
+  
   for (int i = 0; i < 25; i++) {
     bike.applySpeed(i);
     print(bike);
   }
+  
 }
 
 class Bicycle {
