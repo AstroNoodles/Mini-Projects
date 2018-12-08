@@ -1,16 +1,16 @@
 /*
- * This is PART 4 of the Dart Google CodeLab, learning and using the factory pattern in Dart!
+ * This is PARTS 4 and 5 of the Dart Google CodeLab, learning and using the factory pattern in Dart!
  **/
 
 import "dart:math";
 
-abstract class Shape {
-   factory Shape(String name, num side){
+abstract class BasicShape {
+   factory BasicShape(String name, num sideA, num sideB){
     switch(name.toLowerCase()){
-      case "square":
-        return Square(side);
-      case "circle":
-        return Circle(side);
+      case "rect":
+        return Rect(sideA, sideB);
+      case "ellipse":
+        return Ellipse(sideA, sideB);
       default:
         throw "Could not create type $name";
     }
@@ -18,23 +18,44 @@ abstract class Shape {
   num get area;
 }
 
-class Square implements Shape {
-  final num side;
-  Square(this.side);
-	num get area => pow(side, 2);
+// ---------------- IMPLEMENTED CLASSES --------------------
+class Ellipse implements BasicShape {
+  final num xDist, yDist;
+  Ellipse(this.xDist, this.yDist);
+  
+  num get area => pi * xDist * yDist;
+}
+
+class Rect implements BasicShape {
+  final num length, width;
+  Rect(this.length, this.width);
+	num get area => length * width;
   
 }
 
-class Circle implements Shape {
+// ------------------------ EXTENDED CLASSES ----------------------
+class Circle extends Ellipse {
   final num radius;
-  num get area => pi * pow(radius, 2);
   
-  Circle(this.radius);
+  Circle(this.radius) : super(radius, radius);
 }
+
+class Square extends Rect {
+  final num side;
+  
+  Square(this.side) : super(side, side);
+}
+
 
 void main(){
-  final circ = Shape("circle", 5);
-  final square = Shape("square", 7);
+  final circ = BasicShape("ellipse", 5, 2);
+  final square = BasicShape("rect", 7, 5);
   print(circ.area);
-  print(square.area);
+  print(square.area.toString() + "\n");
+  
+  Circle m = Circle(5);
+  print("Circle Inheritance: ");
+  print(m.xDist);
+  print(m.area);
+  
 }
