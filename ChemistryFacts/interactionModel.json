@@ -1,0 +1,64 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "chemistry facts",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "cancel",
+                        "cancel request",
+                        "ignore request"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "guidance",
+                        "what to do",
+                        "help",
+                        "assistance"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "leave",
+                        "get out of",
+                        "exit",
+                        "stop"
+                    ]
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "GetNewFactIntent",
+                    "slots": [],
+                    "samples": [
+                        "a fact",
+                        "a chemistry fact",
+                        "tell me a fact",
+                        "tell me a chemistry fact",
+                        "give me a fact",
+                        "give me a chemistry fact",
+                        "tell me trivia",
+                        "tell me a chemistry trivia",
+                        "give me trivia",
+                        "give me a chemistry trivia",
+                        "give me some information",
+                        "give me some chemistry information",
+                        "tell me something",
+                        "give me something"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
