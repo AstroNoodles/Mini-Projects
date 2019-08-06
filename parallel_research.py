@@ -177,7 +177,8 @@ Now, the model built above will be executed with the training set. If there are 
 
 First, check the available amount of parallel GPUs
 
-gpus = tf.keras.backend.tensorflow_backend._get_available_gpus()
+gpus = tf.keras.backend.tensorflow_backend.get_session().list_devices()
+gpus = [gpu.name for gpu in gpus if gpu.device_type == "GPU"]
 print('Available GPUs on this device are: ' + str(gpus))
 
 isParallel = len(gpus) > 1
