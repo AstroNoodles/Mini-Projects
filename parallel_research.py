@@ -49,6 +49,7 @@ def visualize_cifar(train_data):
   for i in range(1, 10):
     plt.subplot(3, 3, i)
     plt.imshow(random.choice(train_data))
+    plt.show()
 
 visualize_cifar(x_train)
 
