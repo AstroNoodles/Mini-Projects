@@ -178,7 +178,7 @@ Now, the model built above will be executed with the training set. If there are 
 First, check the available amount of parallel GPUs
 
 gpus = tf.keras.backend.tensorflow_backend._get_available_gpus()
-print('Available GPUs on this device are: " + str(gpus))
+print('Available GPUs on this device are: ' + str(gpus))
 
 isParallel = len(gpus) > 1
 
@@ -194,11 +194,11 @@ if isParallel:
                       steps_per_epoch=(x_train.shape[0] // BATCH_SIZE), epochs=EPOCHS,
                       validation_data=(x_test, y_test))
 else:
-print('CPU Compilation')
+    print('CPU Compilation')
 
-model.compile(optimizer=optimizer, loss="categorical_crossentropy",
-              metrics=['accuracy'])
-model.fit_generator(data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
+    model.compile(optimizer=optimizer, loss="categorical_crossentropy",
+                  metrics=['accuracy'])
+    model.fit_generator(data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
                     steps_per_epoch=(x_train.shape[0] // BATCH_SIZE), epochs=EPOCHS,
                     validation_data=(x_test, y_test))
 
