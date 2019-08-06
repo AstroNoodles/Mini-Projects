@@ -175,13 +175,13 @@ model.summary()
 Now, the model built above will be executed with the training set. If there are more than one GPUs on the computer this file is being called in, then it will parallelize the model between the GPUs, else it will execute on the one GPU and CPU.
 """
 
-First, check the available amount of parallel GPUs
+# First, check the available amount of parallel GPUs
 
-gpus = tf.keras.backend.tensorflow_backend.get_session().list_devices()
-gpus = [gpu.name for gpu in gpus if gpu.device_type == "GPU"]
-print('Available GPUs on this device are: ' + str(gpus))
+# gpus = tf.keras.backend.tensorflow_backend.get_session().list_devices()
+# gpus = [gpu.name for gpu in gpus if gpu.device_type == "GPU"]
+# print('Available GPUs on this device are: ' + str(gpus))
 
-isParallel = len(gpus) > 1
+isParallel = True
 
 # Now, run the model.
 optimizer = tf.keras.optimizers.SGD(momentum=0.9, nesterov = True)
@@ -189,7 +189,7 @@ optimizer = tf.keras.optimizers.SGD(momentum=0.9, nesterov = True)
 
 if isParallel:
   print('GPUs parallelized!')
-  multi_gpu_model = keras.utils.multi_gpu_model(model, len(gpus))
+  multi_gpu_model = tf.keras.utils.multi_gpu_model(model, 2)
   multi_gpu_model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['accuracy'])
   multi_gpu_model.fit_generator(data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
                       steps_per_epoch=(x_train.shape[0] // BATCH_SIZE), epochs=EPOCHS,
