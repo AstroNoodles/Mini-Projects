@@ -37,7 +37,7 @@ This is the step where visualization and preprocessing is done in the CIFAR10 da
 """
 
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
-print(f"The shape of the training data is {x_train.shape} and the shape of the labels are {y_train.shape}")
+print("The shape of the training data is "+ str(x_train.shape) + " and the shape of the labels are " + str(y_train.shape)")
 
 def visualize_cifar(train_data):
   """ Visualizes the cifar-10 dataset using matplotlib. This helps give a greater understanding
@@ -175,25 +175,25 @@ model.summary()
 Now, the model built above will be executed with the training set. If there are more than one GPUs on the computer this file is being called in, then it will parallelize the model between the GPUs, else it will execute on the one GPU and CPU.
 """
 
-# First, check the available amount of parallel GPUs
+First, check the available amount of parallel GPUs
 
-# gpus = tf.keras.backend.tensorflow_backend._get_available_gpus()
-# print(f'Available GPUs on this device are: {gpus}')
-#
-# isParallel = len(gpus) > 1
+gpus = tf.keras.backend.tensorflow_backend._get_available_gpus()
+print('Available GPUs on this device are: " + str(gpus))
+
+isParallel = len(gpus) > 1
 
 # Now, run the model.
 optimizer = tf.keras.optimizers.SGD(momentum=0.9, nesterov = True)
 # optimizer = Adam(epsilon=1e-8)
 
-# if isParallel:
-#   print('GPUs parallelized!')
-#   multi_gpu_model = keras.utils.multi_gpu_model(model, len(gpus))
-#   multi_gpu_model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['accuracy'])
-#   multi_gpu_model.fit_generator(data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
-#                       steps_per_epoch=(x_train.shape[0] // BATCH_SIZE), epochs=EPOCHS,
-#                       validation_data=(x_test, y_test))
-# else:
+if isParallel:
+  print('GPUs parallelized!')
+  multi_gpu_model = keras.utils.multi_gpu_model(model, len(gpus))
+  multi_gpu_model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['accuracy'])
+  multi_gpu_model.fit_generator(data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
+                      steps_per_epoch=(x_train.shape[0] // BATCH_SIZE), epochs=EPOCHS,
+                      validation_data=(x_test, y_test))
+else:
 print('CPU Compilation')
 
 model.compile(optimizer=optimizer, loss="categorical_crossentropy",
